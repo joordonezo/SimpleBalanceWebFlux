@@ -1,21 +1,21 @@
 services:
   mongodb:
     image: mongo:4.4.30
-    container_name: mongodb
-    ports:
-      - "27017:27017"
     volumes:
       - mongo_data:/data/db
+    healthcheck:
+      test: ["CMD", "mongo", "--eval", "db.runCommand({ ping: 1 })"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   app:
-    container_name: springboot-app
-    build:
-      context: .
-      dockerfile: Dockerfile
+    build: .
     ports:
       - "8081:8080"
     depends_on:
-      - mongodb
+      mongodb:
+        condition: service_healthy
     environment:
       SPRING_DATA_MONGODB_URI: mongodb://mongodb:27017/simplebalance
 
