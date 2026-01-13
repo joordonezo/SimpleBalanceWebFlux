@@ -18,6 +18,10 @@ public class TransactionService {
         return transactionRepository.findAllByItem(search, PageRequest.of(1,100));
     }
 
+    public Flux<Transaction> getAll(){
+        return transactionRepository.findAll();
+    }
+
     public Mono<Transaction> saveTransaction(Transaction transaction){
         return transactionRepository.save(transaction);
     }

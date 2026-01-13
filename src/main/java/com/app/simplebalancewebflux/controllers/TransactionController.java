@@ -23,6 +23,11 @@ public class TransactionController {
         return transactionService.getAllByItem(q);
     }
 
+    @GetMapping("/list")
+    public Flux<Transaction> getAllList(){
+        return transactionService.getAll();
+    }
+
     @PostMapping("/transaction")
     public Mono<Transaction> saveTransaction(@RequestBody Transaction transaction){
         return transactionService.saveTransaction(transaction);
