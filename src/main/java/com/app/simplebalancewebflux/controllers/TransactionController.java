@@ -28,8 +28,33 @@ public class TransactionController {
         return transactionService.getAll();
     }
 
+    @GetMapping("/transaction/{id}")
+    public Mono<Transaction> getTransactionById(@PathVariable String id){
+        return transactionService.getTransactionById(id);
+    }
+
     @PostMapping("/transaction")
     public Mono<Transaction> saveTransaction(@RequestBody Transaction transaction){
         return transactionService.saveTransaction(transaction);
     }
+
+    @PutMapping("/transaction")
+    public Mono<Transaction> editTransaction(@RequestBody Transaction transaction){
+        return transactionService.editTransaction(transaction);
+    }
+
+    @DeleteMapping("/transaction/{id}")
+    public Mono<Void> deleteTransactionById(@PathVariable String id){
+        return transactionService.deleteTransactionById(id);
+    }
+
+    @DeleteMapping("/transaction")
+    public Mono<Void> deleteTransaction(@RequestBody Transaction transaction){
+        return transactionService.deleteTransaction(transaction);
+    }
+
+
+
+
+
 }

@@ -22,7 +22,23 @@ public class TransactionService {
         return transactionRepository.findAll();
     }
 
+    public Mono<Transaction> getTransactionById(String id){
+        return transactionRepository.findById(id);
+    }
+
     public Mono<Transaction> saveTransaction(Transaction transaction){
         return transactionRepository.save(transaction);
+    }
+
+    public Mono<Transaction> editTransaction(Transaction transaction){
+        return transactionRepository.save(transaction);
+    }
+
+    public Mono<Void> deleteTransaction(Transaction transaction){
+        return transactionRepository.delete(transaction);
+    }
+
+    public Mono<Void> deleteTransactionById(String id){
+        return transactionRepository.deleteById(id);
     }
 }
