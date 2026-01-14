@@ -27,12 +27,20 @@ public class TransactionService {
     }
 
     public Mono<Transaction> saveTransaction(Transaction transaction){
+        transaction.setId(null);
         return transactionRepository.save(transaction);
     }
 
-    public Mono<Transaction> editTransaction(Transaction transaction){
-        return transactionRepository.save(transaction);
+    public Mono<Transaction> editTransaction(Transaction transaction) {
+        return transactionRepository.findById(transaction.getId())
+                .switchIfEmpty(Mono.error(new RuntimeException("Transaction not found")))
+                .flatMap(existing -> {
+                    existing.setItem(transaction.getItem());
+                    existing.setValue(transaction.getValue());
+                    return transactionRepository.save(existing);
+                });
     }
+
 
     public Mono<Void> deleteTransaction(Transaction transaction){
         return transactionRepository.delete(transaction);
