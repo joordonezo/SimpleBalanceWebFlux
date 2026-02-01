@@ -13,11 +13,6 @@ public class TransactionController {
 
     private final TransactionService transactionService;
 
-    @GetMapping("/")
-    public String home() {
-        return "Application Running!!!";
-    }
-
     @GetMapping("/list/{q}")
     public Flux<Transaction> getList(@PathVariable String q){
         return transactionService.getAllByItem(q);
