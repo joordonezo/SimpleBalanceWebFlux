@@ -9,7 +9,7 @@ spring:
     oauth2:
       client:
         registration:
-          simple-balance-web-flux-app:
+          web-flux-app:
             client-id: ${WEB_FLUX_APP_CLIENT_ID:web-flux-app}
             client-secret: ${WEB_FLUX_APP_CLIENT_SECRET:123456789}
             authorization-grant-type: authorization_code
