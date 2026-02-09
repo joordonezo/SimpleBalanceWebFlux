@@ -21,6 +21,11 @@ services:
         condition: service_healthy
     environment:
       SPRING_DATA_MONGODB_URI: mongodb://mongodb:27017/simplebalance
+      WEB_FLUX_APP_CLIENT_ID: ${WEB_FLUX_APP_CLIENT_ID}
+      WEB_FLUX_APP_CLIENT_SECRET: ${WEB_FLUX_APP_CLIENT_SECRET}
+      WEB_FLUX_APP_ISSUER_URL: ${WEB_FLUX_APP_ISSUER_URL}
+      JWKS_URL: ${JWKS_URL}
+      ISSUER_URL: ${ISSUER_URL}
 
 volumes:
   mongo_data:

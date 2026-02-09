@@ -33,11 +33,18 @@ jobs:
 
       - name: Deploy on server with Docker Compose
         uses: appleboy/ssh-action@v1.0.3
+        env:
+          WEB_FLUX_APP_CLIENT_ID: ${secrets.WEB_FLUX_APP_CLIENT_ID}
+          WEB_FLUX_APP_CLIENT_SECRET: ${secrets.WEB_FLUX_APP_CLIENT_SECRET}
+          WEB_FLUX_APP_ISSUER_URL: ${secrets.WEB_FLUX_APP_ISSUER_URL}
+          JWKS_URL: ${secrets.JWKS_URL}
+          ISSUER_URL: ${secrets.ISSUER_URL}
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT }}
+          envs: WEB_FLUX_APP_CLIENT_ID, WEB_FLUX_APP_CLIENT_SECRET, WEB_FLUX_APP_ISSUER_URL, JWKS_URL, ISSUER_URL
           script: |
             cd ${{ secrets.APP_DIR }}
             docker compose down
