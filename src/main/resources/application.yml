@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: "SimpleBalanceWebFlux"
+  data:
+    mongodb:
+      uri: ${SPRING_DATA_MONGODB_URI:mongodb://localhost:27017/simplebalance}
+      auto-index-creation: true
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${JWKS_URL:http://localhost:9000/oauth2/jwks}
+          issuer-uri: ${ISSUER_URL:http://localhost:900}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: "always"
