@@ -34,3 +34,5 @@ build/
 
 ### certs
 /src/main/resources/certs/*
+.env
+.claude

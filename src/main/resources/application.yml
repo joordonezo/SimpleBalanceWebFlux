@@ -7,10 +7,21 @@ spring:
       auto-index-creation: true
   security:
     oauth2:
+      client:
+        registration:
+          web-flux-app:
+            client-id: web-flux-app
+            client-secret: 123456789
+            authorization-grant-type: authorization_code
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            scope: openid,profile
+        provider:
+          web-flux-app:
+            issuer-uri: http://localhost:9000
       resourceserver:
         jwt:
           jwk-set-uri: ${JWKS_URL:http://localhost:9000/oauth2/jwks}
-          issuer-uri: ${ISSUER_URL:http://localhost:900}
+          issuer-uri: ${ISSUER_URL:http://localhost:9000}
 
 management:
   endpoints:
