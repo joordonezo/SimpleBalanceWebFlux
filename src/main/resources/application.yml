@@ -23,15 +23,14 @@ spring:
             issuer-uri: ${ISSUER_URL:http://localhost:9000}
       resourceserver:
         jwt:
-          jwk-set-uri: ${JWKS_URL:http://localhost:9000/oauth2/jwks}
           issuer-uri: ${ISSUER_URL:http://localhost:9000}
 
 logging:
   level:
     root: INFO
-    org.springframework.security: WARN
-    org.springframework.security.oauth2: WARN
-    org.springframework.web.reactive.function.client: WARN
+    org.springframework.security: ${LOGGING_LEVEL:WARN}
+    org.springframework.security.oauth2: ${LOGGING_LEVEL:WARN}
+    org.springframework.web.reactive.function.client: ${LOGGING_LEVEL:WARN}
 
 management:
   endpoints:
