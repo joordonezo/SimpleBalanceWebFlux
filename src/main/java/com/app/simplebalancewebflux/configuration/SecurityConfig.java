@@ -1,5 +1,6 @@
 package com.app.simplebalancewebflux.configuration;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -8,8 +9,6 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserService;
-import org.springframework.security.oauth2.client.userinfo.DefaultReactiveOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.client.userinfo.ReactiveOAuth2UserService;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
@@ -26,6 +25,8 @@ import java.util.Map;
 @EnableWebFluxSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
+
+    private static final TypeReference<Map<String, Object>> MAP_TYPE = new TypeReference<>() {};
 
     private final ObjectMapper mapper;
 
@@ -57,8 +58,7 @@ public class SecurityConfig {
             if (parts.length >= 2) {
                 String payload = new String(Base64.getUrlDecoder().decode(parts[1]));
                 try {
-                    Map<String, Object> claims = mapper.readValue(payload, Map.class);
-                    String sub = (String) claims.getOrDefault("sub", "unknown");
+                    Map<String, Object> claims = mapper.readValue(payload, MAP_TYPE);
                     return Mono.just(new DefaultOAuth2User(
                             Collections.singleton(new SimpleGrantedAuthority("ROLE_USER")),
                             claims,
